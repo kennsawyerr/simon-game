@@ -1,7 +1,7 @@
 //Add an alert to game.js and test that the alert gets triggered when you load up index.html in Chrome.
 // Add jQuery to your website and test that it's successfully loaded by opening Chrome developer tools and typing $("h1")
  //$("#level-title").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-const buttonColours = ["red", "blue","green","yellow" ];
+const buttonColours = ["red","blue","green","yellow" ];
 const gamePattern = []
 function nextSequence(){
 
@@ -10,11 +10,14 @@ function nextSequence(){
 }
 
 const randomNumber = Math.floor(Math.random() * 3) + 1
-
-   //Use jQuery to select the button with the same id as the randomChosenColour
-
 const randomChosenColour = buttonColours[randomNumber]
-$(randomNumber).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+//
+console.log((randomChosenColour))
+//  $(document).click(function() {  
+//      // Select and manipulate the button using jQuery
+//     $("#" + randomChosenColour).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+//   });
+
 
 // alert(randomChosenColour)
 gamePattern.push(randomChosenColour)
