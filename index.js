@@ -12,8 +12,9 @@ function nextSequence(){
 const randomNumber = Math.floor(Math.random() * 3) + 1
 
    //Use jQuery to select the button with the same id as the randomChosenColour
-   //$("#level-title").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+
 const randomChosenColour = buttonColours[randomNumber]
+$(randomNumber).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 
 // alert(randomChosenColour)
 gamePattern.push(randomChosenColour)
