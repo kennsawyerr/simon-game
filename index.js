@@ -12,11 +12,32 @@ function nextSequence(){
 const randomNumber = Math.floor(Math.random() * 3) + 1
 const randomChosenColour = buttonColours[randomNumber]
 //
-console.log((randomChosenColour))
+
 //  $(document).click(function() {  
 //      // Select and manipulate the button using jQuery
 //     $("#" + randomChosenColour).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 //   });
+
+
+// $(document).ready(function(){
+//     $("#" + randomChosenColour).click(function(){
+//         $(this).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+       
+//     })
+// })
+
+jQuery(document).ready(function() {
+    jQuery(document).keypress(function() {
+        jQuery("#" + randomChosenColour).fadeOut(100).fadeIn(100);
+    });
+});
+
+
+$(document).ready(function() {
+    $(document).keypress(function() {
+        $("#" + randomChosenColour).fadeOut(100).fadeIn(100);
+    });
+});
 
 
 // alert(randomChosenColour)
