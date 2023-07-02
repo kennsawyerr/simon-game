@@ -6,6 +6,7 @@ const gamePattern = [];
 const userClickedPattern = [];
 let randomNumber;
 let randomChosenColour;
+var delayInMilliseconds =400;
 
 
 
@@ -20,7 +21,6 @@ randomChosenColour = buttonColours[randomNumber];
 jQuery(document).ready(function() {
     jQuery(document).keypress(function() {
         jQuery("#" + randomChosenColour).fadeOut(100).fadeIn(100);
-        jQuery("#" + randomChosenColour)
        playSound(`${randomChosenColour}`);
     });
 });
@@ -32,15 +32,15 @@ $(document).ready(function() {
     $('.btn').click(function() {
 
      id=$(this).attr('id');
-     animatePress();
+     animatePress(id);
       playSound(id);
     
     });
   });
   
-//busy section
-//busy section
-//busy section
+
+
+//storing  userChosenColour
 
 $(document).ready(function() {
   var userChosenColour; // Variable to store the ID of the clicked button
@@ -71,11 +71,20 @@ function playSound(name){
 
  function animatePress(currentColour){
 
-
+    $(document).ready(function(){ 
         $(".btn").click(function(){
-          $(currentColour).addClass("pressed")
-             console.log(currentColour)
+          currentColour=$(this).addClass("pressed")
+        setTimeout( function(){ 
+            $(".btn").removeClass("pressed")},
+           delayInMilliseconds)
+       
         })
 
+ })
+ //step 1 when btn is clickedDONE
+ //step 2 add box shadow(pressed) to the btn clicked
+ //
+}
 
- }
+ 
+//the first time i press animate, it doesnt do anything but instead logs the whole userClickedPattern
