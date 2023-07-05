@@ -1,63 +1,95 @@
-//Add an alert to game.js and test that the alert gets triggered when you load up index.html in Chrome.
+
 // Add jQuery to your website and test that it's successfully loaded by opening Chrome developer tools and typing $("h1")
  
 
 let randomNumber;
 let randomChosenColour;
 var delayInMilliseconds =150;
-let levelTitle = document.getElementById("")
+ let level= 0;
 const buttonColours = ["red","blue","green","yellow" ];
 const gamePattern = [];
-const userClickedPattern = [];
+const userClickedPattern = [];// storing user patters
+let userChosenColour;// stored in userClickePattern
 
 
 
 
 function nextSequence(){
-    // level++;
-randomNumber = Math.floor(Math.random() * 4) ;
-randomChosenColour = buttonColours[randomNumber];
-
-
-//jquery section
-
-   
- jQuery("#" + randomChosenColour).fadeOut(100).fadeIn(100);
- playSound(`${randomChosenColour}`);
-;
-
-
-//when btn is clicked
-$(document).ready(function() {
-    let id;  
-    $('.btn').click(function() {
-
-     id=$(this).attr('id');
-     animatePress(id);
-      playSound(id);
+//randomnumber runs smoothky
+        randomNumber = Math.floor(Math.random() * 4 ) ;
+        //uttons randomly picked
+        randomChosenColour = buttonColours[randomNumber];
     
-    });
-  });
+        //jquery section 
+        //picking the randomchsencolour to fade when the nextsequence runs
+        jQuery("#" + randomChosenColour).fadeOut(100).fadeIn(100);
+        //playsound for it
+        playSound(`${randomChosenColour}`)
+        //level should be added once it runs
+        level++;
+        //sned level to h1 
+        $("#level-title").html(`Level ${level}`);
 
+       //
+        gamePattern.push(randomChosenColour)//sending colors to the array
+        
+        // gamePattern is pushed only onceee! it runs with the newSequence so it is only pushed once
+  
 
-gamePattern.push(randomChosenColour)
-
+        //end of nextSeuence function
 }
 
+
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
 $(document).ready(function(){
-    // $(document).one("keypress", function(){
-    //     nextSequence();
-    // })
-    nextSequence();
+     $(document).one("keypress", function(){
+        //once a keypresssed, it runs nextSequence()
+       nextSequence();
+
+     })
+    
 });
 
+///////////////
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+
+
+        //when btn is clicked, the button is animated
+        $(document).ready(function() {
+            let id;  //declaring btn holder first
+            $('.btn').click(function() {//onclck, display the id of the btn
+
+            id=$(this).attr('id');
+            animatePress(id);//animateacoording to id
+            playSound(id);//playsoundaccording to id 
+           
+            
+            });
+            
+        });
+
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+
+
+
 $(document).ready(function() {
-    let userChosenColour; // Variable to store the ID of the clicked button
-    $('.btn').click(function() {
+      $('.btn').click(function() {
       // Handler function for button clicks
       userChosenColour = $(this).attr('id'); // Store the ID of the clicked button
-      userClickedPattern.push(userChosenColour);
-      
+    //   
+      userClickedPattern.push(userChosenColour)   
+      checkAnswer(userClickedPattern.length-1);   
     });
   });
 
@@ -70,46 +102,46 @@ function playSound(name){
 
  function animatePress(currentColour) {
         $("#" + currentColour).addClass("pressed");
-
+    
         setTimeout(function() {
           $("#" + currentColour).removeClass("pressed");
         }, delayInMilliseconds);
       };
-    
-  
-  
-
-//  function animatePress(currentColour){
-
-//     $(document).ready(function(){ 
-//         $(".btn").click(function(){
-//           currentColour=$(this).addClass("pressed")
-//         setTimeout( function(){ 
-//             $(".btn").removeClass("pressed")},
-//            delayInMilliseconds)
-       
-//         })
-
-//  })
-
-// }
-
- 
-//the first time i press animate, it doesnt do anything but instead logs the whole userClickedPattern
 
 
 
-// . Use jQuery to detect when a keyboard key has been pressed, when that happens for the first time, call nextSequence().
 
-// $(document).one("keypress", function(){
-//     nextSequence();
-// })
+      function checkAnswer(currentLevel){
 
- 
-// 3. The h1 title starts out saying "Press A Key to Start", when the game has started, change this to say "Level 0".
- 
-// 4. Inside nextSequence(), increase the level by 1 every time nextSequence() is called.
+        if(userChosenColour[currentLevel]===gamePattern[currentLevel])
+        { 
+            if(userChosenColour.length===gamePattern.length)
+            {setTimeout(function(){
+                nextSequence()
+            }
+            , 1000)}
+            else{
+                playSound("wrong");
+                $("body").addClass("game-over");
+                $("#level-title").text("Game Over, Press Any Key to Restart");
+          
+                setTimeout(function () {
+                  $("body").removeClass("game-over");
+                }, 200);
+          
+                startOver();
+              }
+        } 
+        
+        
+        // else {console.log("wrong") }
+        else {console.log("error") } 
+      }
 
-// 5. Inside nextSequence(), update the h1 with this change in the value of level.
+      
 
-// All going well, this is what you should see when you refresh the website:
+function startOver() {
+  level = 0;
+  gamePattern = [];
+  started = false;
+}
